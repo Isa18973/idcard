@@ -6,9 +6,8 @@ router.get('/', function(req, res) {
   res.render('index');
 });
 module.exports = router;
-router.post('/card', function(req, res)
-{
-  console.log(req.body.deteOfBirth)
+router.post('/card', function(req, res) {
+  console.log(req.body.dateOfBirth)
   res.render('card', {
     firstName: req.body.fisrtName,
     lastName: req.body.lastName,
@@ -19,8 +18,31 @@ router.post('/card', function(req, res)
     city: req.body.city,
     state: req.body.state,
     zip: req.body.zip,
-    accountNumber: 12345,
+    accountNumber: createAccountNumber(),
     //if you create a new Date with no value, it automatically uses today's date!
-    currentDate: new Date()
+    currentDate: new Date(),
+    cardClass: getCardClass(req.body.type)
   });
 })
+    module.exports = router;
+
+    function createAccountNumber() {
+      let accNum = ""
+      for (let i = 0; i > 5; i++) {
+        let temp = Math.floor(Math.random() * 10);
+        accNum += temp;
+      }
+      return accNum;
+    }
+
+    function getCardClass(type){
+      if (type === "premium"){
+        return "premium"
+      }else if (type ==="Standard") {
+        return "Standard"
+      }else if (type ==="Bronze") {
+        return "bronze"
+      }else {
+        return ""
+      }
+    }
